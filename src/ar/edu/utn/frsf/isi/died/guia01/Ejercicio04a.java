@@ -14,12 +14,25 @@ public class Ejercicio04a {
 		return this.buscarMaximo(arreglo,arreglo.length-1);
 	}
 	
+	public int buscarMinimo(int[] arreglo){
+		return this.buscarMinimo(arreglo,arreglo.length-1);
+	}
+	
 	private int buscarMaximo(int[]arreglo, int n){
 		int max=Integer.MIN_VALUE;
 		if(n==0) return arreglo[0];
 		else{
 			max = buscarMaximo(arreglo,n-1);
 			return (arreglo[n]>max) ? arreglo[n]:max;
+		}
+	}
+	
+	private int buscarMinimo(int[]arreglo, int n){
+		int min=Integer.MIN_VALUE;
+		if(n==0) return arreglo[0];
+		else{
+			min = buscarMinimo(arreglo,n-1);
+			return (arreglo[n]<min) ? arreglo[n]:min;
 		}
 	}
 	

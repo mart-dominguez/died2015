@@ -1,5 +1,7 @@
 package ar.edu.utn.frsf.isi.died.guia01;
 
+import java.util.Arrays;
+
 /**
  * pancake sort
  * http://www.geeksforgeeks.org/pancake-sorting/
@@ -9,83 +11,56 @@ package ar.edu.utn.frsf.isi.died.guia01;
  *
  */
 public class Ejercicio09 {
-	 int[] heap;
-	 
-	   public String toString() {
-	      String info = "";
-	      for (int x: heap)
-	         info += x + " ";
-	      return info;
-	   }
-	 
-	   public void flip(int n) {
-	      for (int i = 0; i < (n+1) / 2; ++i) {
-	         int tmp = heap[i];
-	         heap[i] = heap[n-i];
-	         heap[n-i] = tmp;
+	 int[] arreglo;
+
+	   private void flip(int n) {
+	      for (int i = 0; i < n / 2; i++) {
+	         int tmp = arreglo[i];
+	         arreglo[i] = arreglo[n-i-1];
+	         arreglo[n-i-1] = tmp;
 	      }      
-	      System.out.println("flip(0.." + n + "): " + toString());
 	   }
 	 
-	   public int[] minmax(int n) {
-	      int xm, xM;
-	      xm = xM = heap[0];
-	      int posm = 0, posM = 0;
 	 
-	      for (int i = 1; i < n; ++i) {
-	         if (heap[i] < xm) {
-	            xm = heap[i];
-	            posm = i;
-	         }
-	         else if (heap[i] > xM) {
-	            xM = heap[i];
-	            posM = i;
-	         }
-	      }
-	      return new int[] {posm, posM};
+	   public void sort() {
+		   this.sort(this.arreglo.length);
 	   }
 	 
-	   public void sort(int n, int dir) {
-	      if (n == 0) return;
-	 
-	      int[] mM = minmax(n);
-	      int bestXPos = mM[dir];
-	      int altXPos = mM[1-dir];
-	      boolean flipped = false;
-	 
-	      if (bestXPos == n-1) {
-	         --n;
-	      }
-	      else if (bestXPos == 0) {
-	         flip(n-1);
-	         --n;
-	      }
-	      else if (altXPos == n-1) {
-	         dir = 1-dir;
-	         --n;
-	         flipped = true;
-	      }
-	      else {
-	         flip(bestXPos);
-	      }
-	      sort(n, dir);
-	 
-	      if (flipped) {
-	         flip(n);
-	      }
+	   public void sort(int n) {
+		   if(n==0) return;
+		   int aux = findPosMax(n);
+		   System.out.println("POS MAX"+aux);
+		   flip(aux+1);
+		   System.out.println(Arrays.toString(this.arreglo));
+		   flip(n);
+		   System.out.println(Arrays.toString(this.arreglo));
+		   sort(n-1);
 	   }
-	 
-	   Ejercicio09(int[] numbers) {
-	      heap = numbers;
-	      sort(numbers.length, 1);
-	   } 
+
+	   /**
+	    * Busco la posicion del maximo elemento.
+	    * @return
+	    */
+	   private int findPosMax(int fin){
+		   int posMax=0;
+		   int max= this.arreglo[0];
+		   for(int i=0;i<fin;i++){
+			   if(this.arreglo[i]>max){
+				   max = this.arreglo[i];
+				   posMax = i;
+			   }
+		   }
+		   return posMax;
+	   }
+	   
+	   
 	 
 	   public static void main(String[] args) {
-	      int[] numbers = new int[args.length];
-	      for (int i = 0; i < args.length; ++i)
-	         numbers[i] = Integer.valueOf(args[i]);
-	 
-	      Ejercicio09 pancakes = new Ejercicio09(numbers);
-	      System.out.println(pancakes);
+	      int[] test = {1,4,5,2,3};
+	      System.out.println("TEST::: "+Arrays.toString(test));
+	      Ejercicio09 pancakes = new Ejercicio09();
+	      pancakes.arreglo = test;
+	      pancakes.sort();
+	      System.out.println(Arrays.toString(pancakes.arreglo));
 	   }
 }

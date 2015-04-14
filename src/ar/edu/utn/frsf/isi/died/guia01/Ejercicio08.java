@@ -1,44 +1,27 @@
 package ar.edu.utn.frsf.isi.died.guia01;
 
 import java.util.Arrays;
-
+ 
 public class Ejercicio08 {
-/*	public	void algoritmoX (itemType a[], int N, int M) {
-		 itemType *b;
-		 b = new itemType [N];
-		 int *count;
-		 count = new int[M];
-		 int i, j;
-		 for (j = 1; j < M; j++) count [j] = 0;
-		 for (i = 1; i <= N; i++) count [a[i]] ++;
-		 for (j = 1; j < M; j++) count [j] += count[j - 1];
-		 for (i = N; i >= 1; i--) b[count[a[i]] --] = a [i];
-		 for (i = 1; i <= N; i++) a[i] = b[i];
-		 delete b;
-		 delete count;
-		}*/
 	
-	public void algoritmoX(int[] a,int n, int m){
-		int[] b = new int[n];
-		int[] count = new int[m];
-		int i,j;
-		 System.out.println("Resultado A--> "+Arrays.toString(a));
-		 for (j = 0; j < m; j++) count [j] = 0;
-		 for (i = 0; i < n; i++) count [a[i]] ++;
-		 System.out.println("Resultado Count--> "+Arrays.toString(count));
-		 for (j = 1; j < m; j++) count [j] += count[j - 1];
-		 System.out.println("Resultado Count--> "+Arrays.toString(count));
-		 for (i = n-1; i > 0; i--) b[count[a[i]]--] = a [i];
-		 for (i = 0; i < n; i++) a[i] = b[i];
-		 System.out.println("Resultado Count--> "+Arrays.toString(count));
-		 System.out.println("Resultado A--> "+Arrays.toString(a));
-		 System.out.println("Resultado B--> "+Arrays.toString(b));
-	}
+	int[] algoritmoX(int[] a, int m1,int m2) {
+		int k = m2-m1+1;
+        int c[] = new int[k];
+        for (int i = 0; i < a.length; i++)
+            c[a[i]]++;
+        for (int i = 1; i < k; i++)
+            c[i] += c[i-1];
+        int b[] = new int[a.length];
+        for (int i = a.length-1; i >= 0; i--)
+            b[--c[a[i]]] = a[i];
+        return b;
+    }
 	
 	public static void main(String[] args){
 		Ejercicio08 ej04 = new Ejercicio08();
-		 int[] test= {5,4,4,1,2,4,3,1,0,2,1,2,1,4,2};
+		 int[] test= {5,4,4,3,0,4,3,5,9,2,5,1,8,4,1};
 		 System.out.println(test.length);
-		 ej04.algoritmoX(test, test.length, 6);
+		 Ejercicio04a minMax = new Ejercicio04a();
+		 System.out.println(Arrays.toString(ej04.algoritmoX(test,minMax.buscarMinimo(test),minMax.buscarMaximo(test))));
 	}
 }
