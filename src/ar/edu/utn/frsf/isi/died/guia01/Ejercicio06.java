@@ -1,91 +1,90 @@
 package ar.edu.utn.frsf.isi.died.guia01;
 
+
+import java.util.Arrays;
+
 /**
- * pancake sort
- * http://www.geeksforgeeks.org/pancake-sorting/
+ * Suponga que cada renglón de un arreglo A de NxN posee valores 1 y 0 
+ * de tal modo que en cualquier renglón de A todos los 1 van antes de que los 0.
  * 
- * https://cgi.csc.liv.ac.uk/~martin/teaching/comp202/Java/Pancakes-code.html
+ * Escribir un método para determinar la fila que tiene mayor cantidad de 1.
  * @author Administrador
  *
  */
 public class Ejercicio06 {
-	 int[] heap;
-	 
-	   public String toString() {
-	      String info = "";
-	      for (int x: heap)
-	         info += x + " ";
-	      return info;
-	   }
-	 
-	   public void flip(int n) {
-	      for (int i = 0; i < (n+1) / 2; ++i) {
-	         int tmp = heap[i];
-	         heap[i] = heap[n-i];
-	         heap[n-i] = tmp;
-	      }      
-	      System.out.println("flip(0.." + n + "): " + toString());
-	   }
-	 
-	   public int[] minmax(int n) {
-	      int xm, xM;
-	      xm = xM = heap[0];
-	      int posm = 0, posM = 0;
-	 
-	      for (int i = 1; i < n; ++i) {
-	         if (heap[i] < xm) {
-	            xm = heap[i];
-	            posm = i;
-	         }
-	         else if (heap[i] > xM) {
-	            xM = heap[i];
-	            posM = i;
-	         }
-	      }
-	      return new int[] {posm, posM};
-	   }
-	 
-	   public void sort(int n, int dir) {
-	      if (n == 0) return;
-	 
-	      int[] mM = minmax(n);
-	      int bestXPos = mM[dir];
-	      int altXPos = mM[1-dir];
-	      boolean flipped = false;
-	 
-	      if (bestXPos == n-1) {
-	         --n;
-	      }
-	      else if (bestXPos == 0) {
-	         flip(n-1);
-	         --n;
-	      }
-	      else if (altXPos == n-1) {
-	         dir = 1-dir;
-	         --n;
-	         flipped = true;
-	      }
-	      else {
-	         flip(bestXPos);
-	      }
-	      sort(n, dir);
-	 
-	      if (flipped) {
-	         flip(n);
-	      }
-	   }
-	 
-	   Ejercicio06(int[] numbers) {
-	      heap = numbers;
-	      sort(numbers.length, 1);
-	   } 
-	 
-	   public static void main(String[] args) {
-	      int[] numbers = new int[args.length];
-	      for (int i = 0; i < args.length; ++i)
-	         numbers[i] = Integer.valueOf(args[i]);
-	 
-	      Ejercicio06 pancakes = new Ejercicio06(numbers);
-	      System.out.println(pancakes);
-	   }
+
+	private int[][] matriz;
+	
+	
+	public int[][] getMatriz() {
+		return matriz;
+	}
+
+	public void setMatriz(int[][] matriz) {
+		this.matriz = matriz;
+	}
+
+	public int filaMasUnos(){
+		int maxCantUnos = 0;
+		int filaConMasUnos = 0;
+		for(int i=0;i<matriz.length;i++){
+			int cantUnosActual = 0;
+			for(int j=0;j<matriz[i].length;j++){
+				if(matriz[i][j]==1) cantUnosActual++;
+				else break;
+			}
+			if(cantUnosActual>maxCantUnos) {
+				maxCantUnos = cantUnosActual;
+				filaConMasUnos = i;
+			}			
+		}
+		return filaConMasUnos;
+	}
+	
+	public int filaMasUnosOptimizado(){
+		int filaConMasUnos = 0;
+		int filaActual = 0;
+		int col=0;
+		while(col<this.matriz[filaActual].length){
+			if(this.matriz[filaActual][col]==1){ 
+				col++;
+				filaConMasUnos = filaActual;
+			}
+			else{
+				filaActual++;
+			}
+		}
+		return filaConMasUnos;
+	}
+	
+	public static void main(String args[]){
+		int[][] test = new int[5][5];
+		//fila 1
+		test[0][0]=1;
+		test[0][1]=1;
+		// fila 2
+		test[1][0]=1;
+		test[1][1]=1;
+		test[1][2]=1;
+		// fila 3
+		test[2][0]=1;
+		test[2][1]=1;
+		test[2][2]=1;
+		// fila 4
+		test[3][0]=1;
+		test[3][1]=1;
+		// fila 5
+		test[4][0]=1;
+		test[4][1]=1;
+		test[4][2]=1;
+		test[4][3]=1;
+		test[4][4]=1;
+		
+		System.out.println(Arrays.toString(test));
+
+		Ejercicio06 ej3 = new Ejercicio06();
+		ej3.setMatriz(test);
+		System.out.println(ej3.filaMasUnos());
+		System.out.println(ej3.filaMasUnosOptimizado());
+	}
 }

@@ -2,7 +2,7 @@ package ar.edu.utn.frsf.isi.died.guia01;
 
 import java.util.Arrays;
 
-public class Ejercicio04 {
+public class Ejercicio08 {
 /*	public	void algoritmoX (itemType a[], int N, int M) {
 		 itemType *b;
 		 b = new itemType [N];
@@ -36,7 +36,7 @@ public class Ejercicio04 {
 	}
 	
 	public static void main(String[] args){
-		Ejercicio04 ej04 = new Ejercicio04();
+		Ejercicio08 ej04 = new Ejercicio08();
 		 int[] test= {5,4,4,1,2,4,3,1,0,2,1,2,1,4,2};
 		 System.out.println(test.length);
 		 ej04.algoritmoX(test, test.length, 6);
